@@ -77,7 +77,7 @@ const LoginForm = () => {
     setForm(tempForm);
   };
 
-  const pastLocation = location?.state?.from?.pathname || "/transaction";
+  const pastLocation = location?.state?.from?.pathname || "/dashboard";
 
   useEffect(() => {
     user?._id && navigate(pastLocation);
@@ -100,9 +100,9 @@ const LoginForm = () => {
           <Button variant="primary" type="submit">
             Log In
           </Button>
-          <a href="/signup" className="text-white">
+          <Link to="/signup" className="text-white">
             Signup?
-          </a>
+          </Link>
         </div>
       </Form>
     </div>

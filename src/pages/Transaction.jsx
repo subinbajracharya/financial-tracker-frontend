@@ -19,6 +19,8 @@ import {
 import { toast } from "react-toastify";
 import { useUser } from "../context/userContext";
 import useForm from "../hooks/useForm";
+import { useDispatch, useSelector } from "react-redux";
+import { setTransactions } from "../features/transactions/transactionSlice";
 
 const Transaction = () => {
   const { testFunction2, user } = useUser();
@@ -37,13 +39,16 @@ const Transaction = () => {
 
   const [total, setTotal] = useState(0);
 
-  const [transactions, setTransactions] = useState([]);
+  // const [transactions, setTransactions] = useState([]);
+  const dispatch = useDispatch();
+  const { transactions } = useSelector((store) => store.transactionStore);
+
   const fetchTransaction = async () => {
     // fetch the token from localstorage
     let data = await getTransation();
 
     console.log(data);
-    setTransactions(data.transactions);
+    dispatch(setTransactions(data.transactions));
 
     let tempTotal = data.transactions.reduce((acc, item) => {
       return item.type == "income"
@@ -96,7 +101,7 @@ const Transaction = () => {
         <Col>
           <div>
             <div className="d-flex justify-content-between align-items-center">
-              <h1>Transaction</h1>
+              <h1>Transactions</h1>
               <button
                 className="btn btn-primary d-flex align-items-center"
                 onClick={() => {
@@ -113,7 +118,12 @@ const Transaction = () => {
               </button>
             </div>
             <hr />
-            <Table hover variant="dark" className="text-center">
+            <Table
+              hover
+              variant="dark"
+              className="text-center"
+              style={{ backgroundColor: "transparent !important" }}
+            >
               <thead>
                 <tr>
                   <th>
