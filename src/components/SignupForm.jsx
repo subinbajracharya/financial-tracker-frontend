@@ -5,7 +5,7 @@ import CustomInput from "./CustomInput";
 import axios from "axios";
 import { postUser } from "../utils/axiosHelper";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 
 const SignupForm = () => {
@@ -140,9 +140,9 @@ const SignupForm = () => {
           <Button variant="primary" type="submit">
             Sign Up
           </Button>
-          <a href="/login" className="text-white">
+          <Link to="/login" className="text-white">
             Already a user?
-          </a>
+          </Link>
         </div>
       </Form>
     </div>
