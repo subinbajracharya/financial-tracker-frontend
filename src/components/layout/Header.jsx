@@ -10,22 +10,18 @@ import { useUser } from "../../context/userContext";
 const Header = () => {
   const { user, setUser } = useUser();
   return (
-    <Navbar
-      expand="lg"
-      className="bg-body-tertiary"
-      variant="dark"
-      data-bs-theme="dark"
-      bg="dark"
-    >
+    <Navbar expand="lg">
       <Container>
-        <Navbar.Brand href="#home">FT</Navbar.Brand>
+        <Navbar.Brand href="#home" className="text-white">
+          FT
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {user && user?._id ? (
               <>
                 <Nav.Link
-                  className="d-flex align-items-center"
+                  className="d-flex align-items-center text-white"
                   as={Link}
                   to="/dashboard"
                 >
@@ -33,7 +29,7 @@ const Header = () => {
                   Dashboard
                 </Nav.Link>
                 <Nav.Link
-                  className="d-flex align-items-center"
+                  className="d-flex align-items-center text-white"
                   as={Link}
                   to="/transaction"
                 >
@@ -53,22 +49,22 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Nav.Link
-                  className="d-flex align-items-center"
+                {/* <Nav.Link
+                  className="d-flex align-items-center text-white"
                   as={Link}
                   to="/login"
                 >
                   <FaHouseUser className="me-1" />
                   Login
-                </Nav.Link>
-                <Nav.Link
-                  className="d-flex align-items-center"
+                </Nav.Link> */}
+                {/* <Nav.Link
+                  className="d-flex align-items-center text-white"
                   as={Link}
                   to="/signup"
                 >
                   <LuNotebookPen className="me-1" />
                   Signup
-                </Nav.Link>
+                </Nav.Link> */}
               </>
             )}
           </Nav>

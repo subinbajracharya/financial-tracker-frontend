@@ -4,8 +4,10 @@ import Form from "react-bootstrap/Form";
 import CustomInput from "./CustomInput";
 import { loginUser } from "../utils/axiosHelper";
 import { toast } from "react-toastify";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
+import { FaChartLine } from "react-icons/fa";
+import { Nav } from "react-bootstrap";
 
 const LoginForm = () => {
   const { setUser, user } = useUser();
@@ -83,16 +85,25 @@ const LoginForm = () => {
 
   return (
     <div className="border border-white border-lg p-5 rounded rounded-5">
-      <h1>Login Form</h1>
+      <div className="text-center">
+        <FaChartLine size="60" />
+        <h1>Financial Tracker</h1>
+        <p>Spend mindfully, save effortlessly.</p>
+      </div>
       <hr />
       <Form onSubmit={handleOnSubmit}>
         {inputFields.map((item) => {
           return <CustomInput {...item} onChange={handleOnChange} />;
         })}
 
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
+        <div className="d-flex justify-content-between align-items-center">
+          <Button variant="primary" type="submit">
+            Log In
+          </Button>
+          <a href="/signup" className="text-white">
+            Signup?
+          </a>
+        </div>
       </Form>
     </div>
   );

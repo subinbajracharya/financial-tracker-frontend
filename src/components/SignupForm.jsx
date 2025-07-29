@@ -72,7 +72,7 @@ const SignupForm = () => {
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
-    alert("Form submitted");
+    // alert("Form submitted");
 
     // make a create user post request
     // axios call
@@ -101,7 +101,10 @@ const SignupForm = () => {
 
   return (
     <div className="border border-white border-lg p-5 rounded rounded-5">
-      <h1>Signup Form</h1>
+      <div className="text-center">
+        <h1>Signup Form</h1>
+        <p>Start tracking your money today.</p>
+      </div>
       <hr />
       <Form onSubmit={handleOnSubmit}>
         {inputFields.map((item) => {
@@ -133,9 +136,14 @@ const SignupForm = () => {
         </Form.Group>
  */}
 
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
+        <div className="d-flex justify-content-between align-items-center">
+          <Button variant="primary" type="submit">
+            Sign Up
+          </Button>
+          <a href="/login" className="text-white">
+            Already a user?
+          </a>
+        </div>
       </Form>
     </div>
   );

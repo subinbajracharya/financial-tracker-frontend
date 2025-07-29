@@ -4,17 +4,17 @@ import { Col, Container, Row } from "react-bootstrap";
 
 const Login = () => {
   return (
-    <Container className="p-5">
-      <Row className="bg-dark p-5 rounded-5">
-        <Col lg={6}>
+    <Container>
+      <Row className="py-5 rounded-5 justify-content-center">
+        <Col xs={12} lg={4}>
           {/* Login FORM */}
           <LoginForm />
         </Col>
-        <Col lg={6}>
+        {/* <Col lg={6}>
           <div>
             <h1>Login HERE</h1>
           </div>
-        </Col>
+        </Col> */}
       </Row>
     </Container>
   );

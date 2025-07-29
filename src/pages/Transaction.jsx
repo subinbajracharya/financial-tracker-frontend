@@ -39,8 +39,6 @@ const Transaction = () => {
 
   const [transactions, setTransactions] = useState([]);
   const fetchTransaction = async () => {
-    console.log(testFunction2());
-
     // fetch the token from localstorage
     let data = await getTransation();
 
@@ -94,7 +92,7 @@ const Transaction = () => {
 
   return (
     <Container className="p-5">
-      <Row className="bg-dark p-5 rounded-5">
+      <Row>
         <Col>
           <div>
             <div className="d-flex justify-content-between align-items-center">

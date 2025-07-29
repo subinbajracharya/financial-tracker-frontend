@@ -1,11 +1,15 @@
 .wrapper {
   min-height: 100vh;
-  background-color: black;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: white;
 }
 
 .main {
   min-height: calc(100vh - 176px);
+}
+
+nav {
+  color: #fff;
 }
 
 * {

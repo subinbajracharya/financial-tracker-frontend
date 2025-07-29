@@ -4,14 +4,14 @@ import SignupForm from "../components/SignupForm";
 
 const Signup = () => {
   return (
-    <Container className="p-5">
-      <Row className="bg-dark p-5 rounded-5">
-        <Col lg={6}>
+    <Container>
+      <Row className="py-5 rounded-5 justify-content-center">
+        {/* <Col xs={12} lg={4}>
           <div>
             <h1>FINANCIAL TRACKER</h1>
           </div>
-        </Col>
-        <Col lg={6}>
+        </Col> */}
+        <Col xs={12} lg={4}>
           {/* SIGNUP FORM */}
           <SignupForm />
         </Col>
