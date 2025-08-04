@@ -66,9 +66,13 @@ const Transaction = () => {
     fetchTransaction();
   }, []);
 
-  const handleOnDelete = async (id) => {
+  const handleOnDelete = async (id, isMany) => {
+    if (!window.confirm("Are you sure you want to delete these transactions?"))
+      return;
+
+    const toDeleteData = isMany ? idsToDelete : [id];
     // delete axios
-    let data = await deleteTransaction(id);
+    let data = await deleteTransaction(toDeleteData);
     if (data.status) {
       toast.success(data.message);
       fetchTransaction();
@@ -77,19 +81,26 @@ const Transaction = () => {
     }
   };
 
-  const handleOnSelect = (checked, id) => {
-    let tempIds = [...idsToDelete];
+  const handleOnSelect = (e) => {
+    const { checked, value } = e.target;
 
-    console.log(checked, id);
+    // Handle to select all the checkboxes
+    if (value === "all") {
+      // Get all the ids from transactions
+      checked
+        ? setIdsToDelete(transactions.map((t) => t._id))
+        : setIdsToDelete([]);
+
+      // Set it to idsToDelete
+      return;
+    }
 
     if (checked) {
       // Check for the duplicate ids
-      tempIds.push(id);
-      setIdsToDelete(tempIds);
+      setIdsToDelete([...idsToDelete, value]);
     } else {
       // Remove the ids from the array
-      tempIds = tempIds.filter((ti) => ti != id);
-      setIdsToDelete(tempIds);
+      setIdsToDelete(idsToDelete.filter((ti) => ti !== value));
     }
   };
 
@@ -127,7 +138,15 @@ const Transaction = () => {
               <thead>
                 <tr>
                   <th>
-                    <Form.Check type="checkbox" value="all" />
+                    <Form.Check
+                      type="checkbox"
+                      value="all"
+                      onChange={handleOnSelect}
+                      checked={
+                        transactions.length === idsToDelete.length &&
+                        transactions.length > 0
+                      }
+                    />
                   </th>
                   <th>#</th>
                   <th>Date</th>
@@ -144,12 +163,9 @@ const Transaction = () => {
                       <td>
                         <Form.Check
                           type="checkbox"
-                          onChange={(e) =>
-                            handleOnSelect(e.target.checked, t._id)
-                          }
-                          checked={
-                            idsToDelete.find((i) => i === t._id) ? true : false
-                          }
+                          value={t._id}
+                          onChange={handleOnSelect}
+                          checked={idsToDelete.includes(t._id)}
                         />
                       </td>
                       <td>{index + 1}</td>
@@ -184,13 +200,16 @@ const Transaction = () => {
                   );
                 })}
                 <tr>
-                  <td colSpan={7}>Total : {total}</td>
+                  <td colSpan={7}>Total : ${total}</td>
                 </tr>
               </tbody>
             </Table>
             {idsToDelete.length > 0 && (
               <div className="d-grid">
-                <Button variant="danger">
+                <Button
+                  variant="danger"
+                  onClick={() => handleOnDelete(null, true)}
+                >
                   Delete {idsToDelete.length}{" "}
                   {idsToDelete.length > 1 ? "Transactions" : "Transaction"}
                 </Button>

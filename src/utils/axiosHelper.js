@@ -78,11 +78,12 @@ export const updateTransaction = async (obj, id) => {
 };
 
 // delete transaction
-export const deleteTransaction = async (id) => {
+export const deleteTransaction = async (data) => {
   return apiProcessor({
     method: "delete",
-    url: `${apiUrl}/transactions/${id}`,
+    url: `${apiUrl}/transactions`,
     isPrivate: true,
+    data
   });
 };
 

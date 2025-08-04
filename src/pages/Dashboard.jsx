@@ -111,11 +111,11 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {dashboardObject.activities.map((item, index) => {
+                {dashboardObject.activities.map((item, i) => {
                   console.log("ITEM:", item);
                   return (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
+                    <tr key={i}>
+                      <td>{i + 1}</td>
                       <td>{item.description}</td>
                       <td
                         className={
