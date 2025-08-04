@@ -1,9 +1,13 @@
 import React from "react";
 import useForm from "../hooks/useForm";
-import { createTransaction, updateTransaction } from "../utils/axiosHelper";
+import {
+  createTransaction,
+  updateTransaction,
+} from "../features/transactions/transactionAxios";
 import { toast } from "react-toastify";
 import { Button, Form } from "react-bootstrap";
 import CustomInput from "./CustomInput";
+import { useDispatch } from "react-redux";
 
 const TransactionForm = ({
   form,
@@ -12,6 +16,7 @@ const TransactionForm = ({
   fetchTransaction,
   handleClose,
 }) => {
+  const dispatch = useDispatch();
   let inputFields = [
     {
       id: "description",

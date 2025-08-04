@@ -2,7 +2,7 @@ import axios from "axios";
 const apiUrl = import.meta.env.VITE_APP_API_URL + "/api/v1";
 
 // axios helper
-const apiProcessor = async ({ method, data, url, isPrivate }) => {
+export const apiProcessor = async ({ method, data, url, isPrivate }) => {
   try {
     let response = await axios({
       method: method,
@@ -48,45 +48,6 @@ export const loginUser = async (obj) => {
   });
 };
 
-// get transaction
-export const getTransation = async () => {
-  return apiProcessor({
-    method: "get",
-    url: `${apiUrl}/transactions`,
-    isPrivate: true,
-  });
-};
-
-// create transaction
-export const createTransaction = async (obj) => {
-  return apiProcessor({
-    method: "post",
-    url: `${apiUrl}/transactions`,
-    data: obj,
-    isPrivate: true,
-  });
-};
-
-// update transaction
-export const updateTransaction = async (obj, id) => {
-  return apiProcessor({
-    method: "patch",
-    url: `${apiUrl}/transactions/${id}`,
-    data: obj,
-    isPrivate: true,
-  });
-};
-
-// delete transaction
-export const deleteTransaction = async (data) => {
-  return apiProcessor({
-    method: "delete",
-    url: `${apiUrl}/transactions`,
-    isPrivate: true,
-    data
-  });
-};
-
 // get user detail
 export const getUserDetail = async () => {
   return apiProcessor({
@@ -102,5 +63,23 @@ export const getDashboardMetrics = async () => {
     method: "get",
     url: `${apiUrl}/dashboard`,
     isPrivate: true,
+  });
+};
+
+// Verify user
+export const verifyUser = async (token, email) => {
+  return apiProcessor({
+    method: "get",
+    url: `${apiUrl}/verify-email?t=${token}&email=${email}`,
+    isPrivate: false,
+  });
+};
+
+// Resend Token
+export const resendToken = async (email) => {
+  return apiProcessor({
+    method: "get",
+    url: `${apiUrl}/resend-token?email=${email}`,
+    isPrivate: false,
   });
 };

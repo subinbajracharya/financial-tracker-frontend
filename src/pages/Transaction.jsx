@@ -5,7 +5,6 @@ import {
   MdEditSquare,
   MdOutlineAddCircleOutline,
 } from "react-icons/md";
-import { deleteTransaction, getTransation } from "../utils/axiosHelper";
 import TransactionForm from "../components/TransactionForm";
 import {
   Button,
@@ -20,7 +19,7 @@ import { toast } from "react-toastify";
 import { useUser } from "../context/userContext";
 import useForm from "../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
-import { setTransactions } from "../features/transactions/transactionSlice";
+import { removeTransaction } from "../features/transactions/transactionAction.js";
 
 const Transaction = () => {
   const { testFunction2, user } = useUser();
@@ -43,42 +42,43 @@ const Transaction = () => {
   const dispatch = useDispatch();
   const { transactions } = useSelector((store) => store.transactionStore);
 
-  const fetchTransaction = async () => {
-    // fetch the token from localstorage
-    let data = await getTransation();
+  // const fetchTransaction = async () => {
+  //   // fetch the token from localstorage
+  //   let data = await getTransation();
 
-    console.log(data);
-    dispatch(setTransactions(data.transactions));
+  //   console.log(data);
+  //   dispatch(setTransactions(data.transactions));
 
-    let tempTotal = data.transactions.reduce((acc, item) => {
-      return item.type == "income"
-        ? acc + parseFloat(item.amount)
-        : acc - parseFloat(item.amount);
-    }, 0);
+  //   let tempTotal = data.transactions.reduce((acc, item) => {
+  //     return item.type == "income"
+  //       ? acc + parseFloat(item.amount)
+  //       : acc - parseFloat(item.amount);
+  //   }, 0);
 
-    console.log(tempTotal);
-    setTotal(tempTotal);
-  };
+  //   console.log(tempTotal);
+  //   setTotal(tempTotal);
+  // };
 
   const [idsToDelete, setIdsToDelete] = useState([]);
 
   useEffect(() => {
-    fetchTransaction();
-  }, []);
+    setTotal(
+      transactions.reduce(
+        (acc, item) =>
+          item.type == "income" ? acc + item.amount : acc - item.amount,
+        0
+      )
+    );
+  }, [transactions]);
 
   const handleOnDelete = async (id, isMany) => {
     if (!window.confirm("Are you sure you want to delete these transactions?"))
       return;
 
     const toDeleteData = isMany ? idsToDelete : [id];
-    // delete axios
-    let data = await deleteTransaction(toDeleteData);
-    if (data.status) {
-      toast.success(data.message);
-      fetchTransaction();
-    } else {
-      toast.error(data.message);
-    }
+    let data = await dispatch(removeTransaction(toDeleteData));
+
+    toast[data.status ? "success" : "error"](data.message);
   };
 
   const handleOnSelect = (e) => {

@@ -6,7 +6,7 @@ import { MdAccountBalance, MdSavings } from "react-icons/md";
 import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
 
 const Dashboard = () => {
-  const { testFunction, user } = useUser();
+  const { user } = useUser();
 
   const [dashboardObject, setDashboardObject] = useState({
     balance: 1000,
@@ -27,14 +27,12 @@ const Dashboard = () => {
     let data = await getDashboardMetrics();
 
     if (data.status) {
-      console.log("DATA: ", data.metrics);
+      // console.log("DATA: ", data.metrics);
       setDashboardObject(data.metrics);
     }
   };
 
   useEffect(() => {
-    console.log(testFunction());
-
     fetchDashboardMetric();
   }, []);
 
@@ -85,21 +83,6 @@ const Dashboard = () => {
           <div className="d-flex flex-column rounded text-white">
             <h3>Cash Flow Summary</h3>
             <hr />
-            {/* <strong className="fs-4">
-              Description: {dashboardObject?.last_transaction?.description}
-            </strong>
-            <br />
-            <strong className="fs-4">
-              Amount: {dashboardObject?.last_transaction?.amount}
-            </strong>
-            <br />
-            <strong className="fs-4">
-              Date: {dashboardObject?.last_transaction?.date}
-            </strong>
-            <br />
-            <strong className="fs-4">
-              Type: {dashboardObject?.last_transaction?.type}
-            </strong> */}
             <Table striped bordered hover variant="dark">
               <thead>
                 <tr>

@@ -107,8 +107,10 @@ const SignupForm = () => {
       </div>
       <hr />
       <Form onSubmit={handleOnSubmit}>
-        {inputFields.map((item) => {
-          return <CustomInput {...item} onChange={handleOnChange} />;
+        {inputFields.map((item, index) => {
+          return (
+            <CustomInput key={index} {...item} onChange={handleOnChange} />
+          );
         })}
 
         {/* <input

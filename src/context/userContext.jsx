@@ -15,26 +15,18 @@ export const UserProvider = ({ children }) => {
 
     if (data.status) {
       setUser(data.user);
+    } else {
+      setUser({});
     }
-  };
-
-  const testFunction = () => {
-    return "TEST FUNCTION";
-  };
-
-  const testFunction2 = () => {
-    return "TEST FUNCTION 2";
   };
 
   let sharedData = {
     user,
     setUser,
-    testFunction,
-    testFunction2,
     autoLogin,
   };
 
-  //   return what needs to be shared
+  // Return what needs to be shared
   return (
     <UserContext.Provider value={sharedData}>{children}</UserContext.Provider>
   );
