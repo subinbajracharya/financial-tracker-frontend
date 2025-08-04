@@ -111,28 +111,40 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {dashboardObject.activities.map((item, i) => {
-                  console.log("ITEM:", item);
-                  return (
-                    <tr key={i}>
-                      <td>{i + 1}</td>
-                      <td>{item.description}</td>
-                      <td
-                        className={
-                          item.type == "income"
-                            ? "text-success"
-                            : item.type == "expense"
-                            ? "text-danger"
-                            : ""
-                        }
-                      >
-                        ${item.amount}
-                      </td>
-                      <td>{item.date.split("T")[0]}</td>
-                      <td>{item.type}</td>
-                    </tr>
-                  );
-                })}
+                {dashboardObject.activities.length === 0 ? (
+                  <tr>
+                    <td colSpan={5} className="text-center">
+                      There are currently no transactions to display.
+                    </td>
+                  </tr>
+                ) : (
+                  <>
+                    {dashboardObject.activities.map((item, i) => {
+                      console.log("ITEM:", item);
+                      return (
+                        <tr key={i}>
+                          <td>{i + 1}</td>
+                          <td className="text-capitalize">
+                            {item.description}
+                          </td>
+                          <td
+                            className={
+                              item.type == "income"
+                                ? "text-success"
+                                : item.type == "expense"
+                                ? "text-danger"
+                                : ""
+                            }
+                          >
+                            ${item.amount}
+                          </td>
+                          <td>{item.date.split("T")[0]}</td>
+                          <td className="text-capitalize">{item.type}</td>
+                        </tr>
+                      );
+                    })}
+                  </>
+                )}
               </tbody>
             </Table>
           </div>

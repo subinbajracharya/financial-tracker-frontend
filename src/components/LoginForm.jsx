@@ -77,7 +77,7 @@ const LoginForm = () => {
     setForm(tempForm);
   };
 
-  const pastLocation = location?.state?.from?.pathname || "/transaction";
+  const pastLocation = location?.state?.from?.pathname || "/dashboard";
 
   useEffect(() => {
     user?._id && navigate(pastLocation);

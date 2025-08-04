@@ -157,51 +157,61 @@ const Transaction = () => {
                 </tr>
               </thead>
               <tbody>
-                {transactions.map((t, index) => {
-                  return (
+                {transactions.length === 0 ? (
+                  <tr>
+                    <td colSpan={7} className="text-center">
+                      There are currently no transactions to display.
+                    </td>
+                  </tr>
+                ) : (
+                  <>
+                    {transactions.map((t, index) => {
+                      return (
+                        <tr key={t._id}>
+                          <td>
+                            <Form.Check
+                              type="checkbox"
+                              value={t._id}
+                              onChange={handleOnSelect}
+                              checked={idsToDelete.includes(t._id)}
+                            />
+                          </td>
+                          <td>{index + 1}</td>
+                          <td>{t.date.split("T")[0]}</td>
+                          <td className="text-capitalize">{t.description}</td>
+                          <td className="text-danger">
+                            {t.type == "expense" ? "$" + t.amount : ""}
+                          </td>
+                          <td className="text-success">
+                            {t.type == "income" ? "$" + t.amount : ""}
+                          </td>
+                          <td>
+                            <button
+                              className="btn btn-danger me-2"
+                              onClick={() => {
+                                handleOnDelete(t._id);
+                              }}
+                            >
+                              <MdAutoDelete /> Delete
+                            </button>
+                            <button
+                              className="btn btn-warning"
+                              onClick={() => {
+                                setForm(t);
+                                handleShow();
+                              }}
+                            >
+                              <MdEditSquare /> Edit
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
                     <tr>
-                      <td>
-                        <Form.Check
-                          type="checkbox"
-                          value={t._id}
-                          onChange={handleOnSelect}
-                          checked={idsToDelete.includes(t._id)}
-                        />
-                      </td>
-                      <td>{index + 1}</td>
-                      <td>{t.date.split("T")[0]}</td>
-                      <td>{t.description}</td>
-                      <td className="text-danger">
-                        {t.type == "expense" ? "$" + t.amount : ""}
-                      </td>
-                      <td className="text-success">
-                        {t.type == "income" ? "$" + t.amount : ""}
-                      </td>
-                      <td>
-                        <button
-                          className="btn btn-danger me-2"
-                          onClick={() => {
-                            handleOnDelete(t._id);
-                          }}
-                        >
-                          <MdAutoDelete /> Delete
-                        </button>
-                        <button
-                          className="btn btn-warning"
-                          onClick={() => {
-                            setForm(t);
-                            handleShow();
-                          }}
-                        >
-                          <MdEditSquare /> Edit
-                        </button>
-                      </td>
+                      <td colSpan={7}>Total : ${total}</td>
                     </tr>
-                  );
-                })}
-                <tr>
-                  <td colSpan={7}>Total : ${total}</td>
-                </tr>
+                  </>
+                )}
               </tbody>
             </Table>
             {idsToDelete.length > 0 && (
