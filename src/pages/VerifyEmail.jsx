@@ -12,7 +12,7 @@ const VerifyEmail = () => {
 
   const handleOnClick = async () => {
     setIsLoading(true);
-    alert("VERIFY");
+    // alert("VERIFY");
     const token = urlParams.get("t");
     console.log(token);
     const email = urlParams.get("email");
@@ -58,7 +58,11 @@ const VerifyEmail = () => {
               </Button>
             ) : (
               <>
-                <Button variant="primary" onClick={handleOnClick}>
+                <Button
+                  variant="primary"
+                  onClick={handleOnClick}
+                  className="me-2"
+                >
                   Verify
                 </Button>
                 <Button variant="primary" onClick={handleOnResend}>

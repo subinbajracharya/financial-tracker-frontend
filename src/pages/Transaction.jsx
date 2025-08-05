@@ -19,11 +19,12 @@ import { toast } from "react-toastify";
 import { useUser } from "../context/userContext";
 import useForm from "../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
-import { removeTransaction } from "../features/transactions/transactionAction.js";
+import {
+  fetchTransactions,
+  removeTransaction,
+} from "../features/transactions/transactionAction.js";
 
 const Transaction = () => {
-  const { testFunction2, user } = useUser();
-
   const [show, setShow] = useState(false);
 
   const { form, setForm, handleOnChange } = useForm({
@@ -39,6 +40,9 @@ const Transaction = () => {
   const [total, setTotal] = useState(0);
 
   // const [transactions, setTransactions] = useState([]);
+  const refreshTransactions = () => {
+    dispatch(fetchTransactions());
+  };
   const dispatch = useDispatch();
   const { transactions } = useSelector((store) => store.transactionStore);
 
@@ -71,6 +75,10 @@ const Transaction = () => {
     );
   }, [transactions]);
 
+  useEffect(() => {
+    refreshTransactions(); // Load on mount
+  }, []);
+
   const handleOnDelete = async (id, isMany) => {
     if (!window.confirm("Are you sure you want to delete these transactions?"))
       return;
@@ -78,7 +86,12 @@ const Transaction = () => {
     const toDeleteData = isMany ? idsToDelete : [id];
     let data = await dispatch(removeTransaction(toDeleteData));
 
-    toast[data.status ? "success" : "error"](data.message);
+    if (data.status) {
+      toast.success(data.message);
+      setIdsToDelete([]); // Clear selection after successful deletion
+    } else {
+      toast.error(data.message);
+    }
   };
 
   const handleOnSelect = (e) => {
@@ -239,7 +252,7 @@ const Transaction = () => {
             form={form}
             setForm={setForm}
             handleOnChange={handleOnChange}
-            fetchTransaction={fetchTransaction}
+            fetchTransactions={refreshTransactions}
             handleClose={handleClose}
           />
         </Modal.Body>

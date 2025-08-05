@@ -13,7 +13,7 @@ const TransactionForm = ({
   form,
   setForm,
   handleOnChange,
-  fetchTransaction,
+  fetchTransactions,
   handleClose,
 }) => {
   const dispatch = useDispatch();
@@ -44,8 +44,6 @@ const TransactionForm = ({
     },
   ];
 
-  console.log(1111, form.date);
-
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     // call create transaction api
@@ -62,7 +60,7 @@ const TransactionForm = ({
     if (data.status) {
       // successfully created transaction
       toast.success(data.message);
-      fetchTransaction();
+      fetchTransactions();
       // hide modal
       handleClose();
     } else {

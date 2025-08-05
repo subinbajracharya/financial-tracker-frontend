@@ -4,6 +4,7 @@ import { Col, Container, Row, Table } from "react-bootstrap";
 import { getDashboardMetrics } from "../utils/axiosHelper";
 import { MdAccountBalance, MdSavings } from "react-icons/md";
 import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
+import DashboardChart from "../components/DashboardChart";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -71,14 +72,15 @@ const Dashboard = () => {
           </div>
         </Col>
       </Row>
+      {dashboardObject.activities.length > 0 && (
+        <Row>
+          <Col>
+            <DashboardChart activities={dashboardObject.activities} />
+          </Col>
+        </Row>
+      )}
+
       <Row className="justify-content-center">
-        {/* <Col xs="3" md="4">
-          <div className="p-4 d-flex flex-column rounded bg-primary">
-            <h3>No of Transaction</h3>
-            <hr />
-            <strong className="fs-1">{dashboardObject?.transaction_no}</strong>
-          </div>
-        </Col> */}
         <Col xs="12">
           <div className="d-flex flex-column rounded text-white">
             <h3>Cash Flow Summary</h3>
