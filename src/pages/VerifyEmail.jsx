@@ -39,10 +39,6 @@ const VerifyEmail = () => {
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    handleOnClick();
-  }, []);
-
   return (
     <Container className="p-5">
       <Row className="bg-dark p-5 rounded-5">
@@ -63,7 +59,7 @@ const VerifyEmail = () => {
                   onClick={handleOnClick}
                   className="me-2"
                 >
-                  Verify
+                  Verify Email
                 </Button>
                 <Button variant="primary" onClick={handleOnResend}>
                   Resend Token

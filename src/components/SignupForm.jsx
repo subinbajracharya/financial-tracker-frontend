@@ -16,11 +16,7 @@ const SignupForm = () => {
     password: "",
   };
 
-  console.log(useState(0));
-
-  const { form, setForm, handleOnChange } = useForm(initialState);
-
-  // const [form, setForm] = useState(initialState);
+  const { form, handleOnChange } = useForm(initialState);
 
   // const handleOnChange = (event) => {
   //   let tempForm = { ...form };

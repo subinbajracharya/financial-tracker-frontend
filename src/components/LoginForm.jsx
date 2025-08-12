@@ -3,11 +3,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import CustomInput from "./CustomInput";
 import { loginUser } from "../utils/axiosHelper";
-import { toast } from "react-toastify";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
 import { FaChartLine } from "react-icons/fa";
-import { Nav } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const { setUser, user } = useUser();

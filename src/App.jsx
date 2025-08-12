@@ -13,7 +13,7 @@ import Auth from "./auth/Auth";
 import { useUser } from "./context/userContext";
 import { useDispatch } from "react-redux";
 import VerifyEmail from "./pages/VerifyEmail";
-import { fetchTransactions } from "./features/transactions/transactionAction";
+import { fetchTransactions } from "./features/transactions/transactionAction.js";
 
 function App() {
   const [count, setCount] = useState(0);
